@@ -12,8 +12,11 @@ import { CarCard } from '../../components/car-card/car-card';
   styleUrl: './car-list.scss',
 })
 export class CarList implements OnInit {
+ 
   private carService = inject(CarService);
+
   cars$!: Observable<Car[]>;
+
   ngOnInit(): void {
     this.cars$ = this.carService.getCars();
   }

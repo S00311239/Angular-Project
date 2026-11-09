@@ -1,7 +1,11 @@
 export interface Car {
-name: any;
-id: any;
-    _id?: string;
+    _id: string;
+    make: string;
+    model: string;
+    year?: number;
+}
+
+export interface CreateCarDto {
     make: string;
     model: string;
     year?: number;
