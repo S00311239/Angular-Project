@@ -43,6 +43,10 @@
     <!-- Action Buttons -->
      @if (saveError(); as message) { <p role="alert">{{ message }}</p> }
 
+     @if (saving()) {
+        <mat-progress-bar mode="buffer" />
+    }
+
     <div class="button-group">
         <button matButton="filled" type="submit" [disabled]="saving()">
             {{saving() ? 'Saving...' : 'Save car'}}
