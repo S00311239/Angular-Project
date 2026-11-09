@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-car-form',
@@ -27,6 +28,7 @@ export class CarForm {
   saving = signal(false);
   saveError = signal<string | null>(null);
   readonly currentYear = new Date().getFullYear();
+  private snackBar = inject(MatSnackBar);
 
 carForm = this.formBuilder.nonNullable.group({
   make: ['', [Validators.required, Validators.minLength(2), Validators.maxLength  (30)]],
@@ -46,6 +48,7 @@ carForm = this.formBuilder.nonNullable.group({
     this.saveError.set(null);
     this.carService.addCar(newCar).subscribe({
       next: (response) => {
+        this.snackBar.open(`${newCar.make} ${newCar.model} saved`, 'Close', { duration: 10000 });
         console.log('Car added successfully:', response);
         this.router.navigate(['/cars']);
       },
