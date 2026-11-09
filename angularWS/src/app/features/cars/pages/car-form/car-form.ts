@@ -3,15 +3,23 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CreateCarDto } from '../../models/car.model';
 import { Router, RouterLink } from '@angular/router';
 import { CarService } from '../../services/car.service';
+import { MatButtonModule, } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-car-form',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, 
+            RouterLink,
+            MatButtonModule,
+            MatFormFieldModule,
+            MatInputModule,
+            MatCardModule],
   templateUrl: './car-form.html',
   styleUrl: './car-form.scss',
 })
 export class CarForm {
-
 
   private formBuilder = inject(FormBuilder);
   saving = signal(false);
