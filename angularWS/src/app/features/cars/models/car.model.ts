@@ -10,3 +10,11 @@ export interface CreateCarDto {
     model: string;
     year?: number;
 }
+
+// same as create car but later usefull to change individual fields
+export interface UpdateCarDto {
+    make: string;
+    model: string;
+    year?: number;
+}
+

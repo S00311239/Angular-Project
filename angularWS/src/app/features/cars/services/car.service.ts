@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
-import { Car, CreateCarDto } from '../models/car.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Car, CreateCarDto, UpdateCarDto } from '../models/car.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +27,21 @@ export class CarService {
 
   addCar(car: CreateCarDto): Observable<Car> {
     return this.http.post<Car>(this.apiUrl, car,{
-      
       headers: {
       'x-api-key': 'blahblah'
       }
     })
   }
 
+  updateCar(id: string, changes: UpdateCarDto): Observable<Car> {
+    return this.http.put<Car>(`${this.apiUrl}/${id}`, changes);
+  }
+
+  deleteCar(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: {
+        'x-api-key': 'blahblah'
+      }
+    });
+  }
 }

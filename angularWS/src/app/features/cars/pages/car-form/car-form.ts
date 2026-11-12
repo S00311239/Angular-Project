@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, input } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CreateCarDto } from '../../models/car.model';
 import { Router, RouterLink } from '@angular/router';
@@ -39,6 +39,7 @@ carForm = this.formBuilder.nonNullable.group({
   
   private carService = inject(CarService);
   private router = inject(Router);
+  readonly id = input<string>(); // note this is optional by default
 
   onSubmit(): void {
     const { make, model, year } = this.carForm.getRawValue();
