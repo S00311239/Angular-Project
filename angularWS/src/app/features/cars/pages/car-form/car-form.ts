@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { notBlank } from '../../../../shared/validators/not-blank.validator';
 
 @Component({
   selector: 'app-car-form',
@@ -31,12 +32,23 @@ export class CarForm implements OnInit{
   readonly currentYear = new Date().getFullYear();
   private snackBar = inject(MatSnackBar);
 
-carForm = this.formBuilder.nonNullable.group({
-  make: ['', [Validators.required, Validators.minLength(2), Validators.maxLength  (30)]],
-  model: ['', [Validators.required, Validators.maxLength(30)]],
-  year: this.formBuilder.control<number | null>(null, [Validators.min(1950),
-  Validators.max(this.currentYear + 1),]),
-});
+  carForm = this.formBuilder.nonNullable.group({
+    make: ['', [
+            Validators.required, 
+            Validators.minLength(2), 
+            Validators.maxLength  (30),
+            notBlank
+          ]],
+            
+    model: ['', [
+            Validators.required, 
+            Validators.maxLength(30),
+            notBlank
+        ]],
+    year: this.formBuilder.control<number | null>(null, [
+            Validators.min(1950),
+            Validators.max(this.currentYear + 1),]),
+  });
   
   private carService = inject(CarService);
   private router = inject(Router);
@@ -64,6 +76,8 @@ carForm = this.formBuilder.nonNullable.group({
   }
 
   onSubmit(): void {
+
+    if (this.carForm.invalid) return;
 
     const { make, model, year } = this.carForm.getRawValue();
     const newCar: CreateCarDto = { make, model, year: year ?? undefined };
