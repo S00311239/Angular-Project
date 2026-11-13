@@ -34,7 +34,11 @@ export class CarService {
   }
 
   updateCar(id: string, changes: UpdateCarDto): Observable<Car> {
-    return this.http.put<Car>(`${this.apiUrl}/${id}`, changes);
+    return this.http.put<Car>(`${this.apiUrl}/${id}`, changes, {
+      headers: {
+      'x-api-key': 'blahblah'
+      }
+  });
   }
 
   deleteCar(id: string): Observable<void> {
