@@ -14,5 +14,12 @@
     }
     
     <a matButton="filled" [routerLink]= "['/cars', s.data._id, 'edit']">Edit</a>
+    <button 
+        matButton="outlined" 
+        (click)="deleteCar(s.data)"
+        [disabled]="deleting()"
+    >
+    Delete
+    </button>
     
 }
